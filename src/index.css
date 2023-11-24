@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flex-props-c{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex-props-b{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* tailwind.css or your custom styles */
+.dekstop-navbar a.active{
+  color: rgb(229, 48, 48);
+}
