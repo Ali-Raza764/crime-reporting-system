@@ -1,14 +1,27 @@
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthUser } from "../utils/AuthUser"; // our custom hook for getting user auth property in realtime
 
 const Search = () => {
   const navigate = useNavigate();
+  const user = AuthUser();
+  // const user = true;
   const handleSubmit = (e) => {
     e.preventDefault();
 
     navigate(`/criminaldetails/${e.target.criminalId.value}`);
   };
 
+  if (!user) {
+    return (
+      <div className="w-full h-[90%] flex-props-c flex-col">
+        <h1>Please Log in first</h1>
+        <Link to={"/login"}>
+          <button className="p-2 text-xl font-semibold">LogIn</button>
+        </Link>
+      </div>
+    );
+  }
   return (
     <div className="container mx-auto mt-8 flex-props-c h-[85%]">
       <div className="bg-white p-8 rounded-md shadow-xl flex-props-c flex-col">
@@ -41,7 +54,6 @@ const Search = () => {
             Advanced Search
           </button>
         </div>
-
       </div>
     </div>
   );

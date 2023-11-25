@@ -1,24 +1,31 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// Import your components
-import { Header } from "./components";
-import { Home, Login, CriminalDetails, Search } from "./pages";
+import { Header, Loader } from "./components";
+
+// Lazyly Load all the pages to increase Browser Loading speed
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Search = lazy(() => import("./pages/Search"));
+const CriminalDetails = lazy(() => import("./pages/CriminalDetails"));
+const CreateCriminal = lazy(() => import("./pages/CreateCriminal"));
+
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
     <Router>
-      <div>
-        <Header />
-        <ToastContainer />
+      <Header />
+      <ToastContainer />
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/criminaldetails/:id" element={<CriminalDetails />} />
+          <Route path="/createcriminal" element={<CreateCriminal />} />
         </Routes>
-      </div>
+      </Suspense>
     </Router>
   );
 };

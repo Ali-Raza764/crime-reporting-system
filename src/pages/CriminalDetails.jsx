@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-
-import { useParams } from "react-router-dom";
-import { Criminal } from "../components";
-import CriminalLoading from "../components/CriminalLoadiong";
+import { Link, useParams } from "react-router-dom";
+import { Criminal, CriminalLoading } from "../components";
+import { AuthUser } from "../utils/AuthUser"; // our custom hook for getting user auth property in realtime
+import { getCriminalDetails } from "../utils/getCriminalDetails";
 
 const CriminalDetails = () => {
   const { id } = useParams();
+  const user = AuthUser();
+  // const user = true;
   const [criminalData, setCriminalData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -31,8 +32,19 @@ const CriminalDetails = () => {
   };
   useEffect(() => {
     handleSearch(id);
+    // getCriminalDetails().then(doc=>setCriminalData(doc));
   }, [id]);
 
+  if (!user) {
+    return (
+      <div className="w-full h-[90%] flex-props-c flex-col">
+        <h1>Please Log in first</h1>
+        <Link to={"/login"}>
+          <button className="p-2 text-xl font-semibold">LogIn</button>
+        </Link>
+      </div>
+    );
+  }
   return (
     <div className="container mx-auto">
       {loading ? (

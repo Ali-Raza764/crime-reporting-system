@@ -16,3 +16,6 @@
 .dekstop-navbar a.active{
   color: rgb(229, 48, 48);
 }
+.mobile-menu a.active{
+  color: black;
+}
