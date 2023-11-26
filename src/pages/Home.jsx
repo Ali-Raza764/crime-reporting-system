@@ -9,7 +9,7 @@ const variants = {
 
 const MotionDiv = ({ icon, title, description, color, index }) => (
   <motion.div
-    className={`flex rounded-md w-full sm:w-[24rem] p-4 mb-4 shadow-xl ${color}`}
+    className={`flex rounded-md w-full sm:w-[24rem] p-4 mb-4 shadow-xl ${color} overflow-hidden`}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     transition={{ duration: 0.8, delay: index * 0.35 }}
