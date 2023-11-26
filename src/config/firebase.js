@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCPMdm2HkDGjqVjNbjBq4vH2NDhmPeNC_Q",
@@ -11,5 +12,16 @@ const firebaseConfig = {
   measurementId: "G-N9VWX6DHKB"
 };
 
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const storage = getStorage();
+export { auth, app, storage };
+
+// upload any photo and get its url
+export async function upload(file) {
+  const fileRef = ref(storage, 'criminal-images/'+file.name);
+
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL  = await getDownloadURL(fileRef);
+  return photoURL;
+}

@@ -1,31 +1,28 @@
-// Criminal.jsx
 import React from "react";
 import { FaExclamationCircle } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
-import criminalImage from "../assets/criminal.jpg"; // Import your criminal image
-import { Link } from "react-router-dom";
 
 const Criminal = ({
   criminalData: {
-    id,
+    criminalId,
+    imageUrl,
     name,
     gender,
     age,
     criminal_records,
-    criminal_description,
+    description,
   },
 }) => {
   return (
     <div className="container mx-auto bg-white px-6 py-4 rounded-md shadow-md">
         <div className="flex items-center mb-4">
           <img
-            src={criminalImage}
+            src={imageUrl}
             alt="Criminal"
             className="w-16 h-16 rounded-full mr-4"
           />
           <div>
             <h3 className="text-xl font-semibold">{name}</h3>
-            <p className="text-gray-600">ID: {id}</p>
+            <p className="text-gray-600">ID: {criminalId}</p>
           </div>
         </div>
 
@@ -55,7 +52,7 @@ const Criminal = ({
 
         <div className="mt-6">
           <h4 className="text-lg font-semibold mb-2">Additional Details</h4>
-          <p className="text-gray-600">{criminal_description}</p>
+          <p className="text-gray-600">{description}</p>
         </div>
 
         <div className="mt-8 flex justify-end">

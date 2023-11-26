@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Icon from "../assets/icon.png";
 import { AuthUser } from "../utils/AuthUser"; // our custom hook for getting user auth property in realtime
-import { FaHome, FaSearch, FaUser, FaArrowRight, FaPlus } from "react-icons/fa";
+import {
+  FaHome,
+  FaSearch,
+  FaUser,
+  FaArrowRight,
+  FaPlus,
+} from "react-icons/fa";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const user = true;
-  // const user  = AuthUser();
+  const user = AuthUser();
 
   return (
     <div className="border-b-2 p-3 sm:p-4 sticky top-0 bg-white">
@@ -26,7 +31,7 @@ const Header = () => {
             <FaHome /> Home
           </NavLink>
           <NavLink
-            to="/login"
+            to={user ? "/admin" : "/login"}
             className="hover:text-red-600 text-xl font-semibold text-gray-700 flex-props-c gap-x-2"
           >
             <FaUser /> {user ? "User" : "Login"}
@@ -89,7 +94,7 @@ const Header = () => {
             <FaHome /> Home <FaArrowRight />
           </NavLink>
           <NavLink
-            to="/login"
+            to={user ? "/admin" : "/login"} 
             className=" flex-props-b text-gray-200 w-full"
             onClick={() => setIsOpen(false)}
           >
@@ -101,6 +106,13 @@ const Header = () => {
             onClick={() => setIsOpen(false)}
           >
             <FaSearch /> <h2>Search</h2> <FaArrowRight />
+          </NavLink>
+          <NavLink
+            to="/createcriminal"
+            className="flex-props-b text-gray-200 w-full"
+            onClick={() => setIsOpen(false)}
+          >
+            <FaPlus /> <h2>Create</h2> <FaArrowRight />
           </NavLink>
         </div>
       </div>

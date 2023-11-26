@@ -2,13 +2,23 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  
 
+  const location = useLocation();
+  const { search } = location;
+  // Use URLSearchParams to extract query parameters
+  const queryParams = new URLSearchParams(search);
+  const returnUrl = queryParams.has("returnUrl") ? queryParams.get("returnUrl") : '';
+  
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const user = await signInWithEmailAndPassword(
         auth,
@@ -27,8 +37,8 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
-
-      navigate('/')
+      setLoading(false)
+      navigate(`/${returnUrl}`)
 
     } catch (err) {
       console.error(err);
@@ -42,6 +52,7 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
+      setLoading(true)
     }
   };
 
@@ -70,6 +81,7 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   required
+                  disabled={loading}
                   className="block px-4 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
                 />
               </div>
@@ -99,6 +111,7 @@ const Login = () => {
                   type="password"
                   autoComplete="current-password"
                   required
+                  disabled={loading}
                   className="block px-4 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
                 />
               </div>

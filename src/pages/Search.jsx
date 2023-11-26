@@ -1,11 +1,11 @@
 import { FaSearch } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthUser } from "../utils/AuthUser"; // our custom hook for getting user auth property in realtime
+import { LoggedOut } from "../components";
 
 const Search = () => {
   const navigate = useNavigate();
   const user = AuthUser();
-  // const user = true;
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -13,17 +13,10 @@ const Search = () => {
   };
 
   if (!user) {
-    return (
-      <div className="w-full h-[90%] flex-props-c flex-col">
-        <h1>Please Log in first</h1>
-        <Link to={"/login"}>
-          <button className="p-2 text-xl font-semibold">LogIn</button>
-        </Link>
-      </div>
-    );
+    return <LoggedOut />
   }
   return (
-    <div className="container mx-auto mt-8 flex-props-c h-[85%]">
+    <div className="container mx-auto mt-8 flex-props-c h-[85vh]">
       <div className="bg-white p-8 rounded-md shadow-xl flex-props-c flex-col">
         <h2 className="text-3xl font-bold mb-6">Search Criminal</h2>
 
