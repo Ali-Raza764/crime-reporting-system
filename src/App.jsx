@@ -12,6 +12,7 @@ const Admin = lazy(() => import("./pages/Admin"));
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/criminaldetails/:id" element={<CriminalDetails />} />
           <Route path="/createcriminal" element={<CreateCriminal />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Footer />
