@@ -19,7 +19,7 @@ const MotionDiv = ({ icon, title, description, color, index }) => (
   >
     <div className="flex-shrink-0 text-left">
       {icon}
-      <h3 className="text-xl font-bold mb-2 w-[80%]">{title}</h3>
+      <h3 className="text-xl font-bold mb-2 w-[10rem]">{title}</h3>
       <p>{description}</p>
     </div>
   </motion.div>
