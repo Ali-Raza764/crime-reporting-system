@@ -15,8 +15,8 @@ const Header = () => {
   const user = AuthUser();
 
   return (
-    <div className="border-b-2 p-3 sm:p-4 sticky top-0 bg-white">
-      <div className="flex items-center justify-between">
+    <div className="border-b-2 sticky top-0 bg-white">
+      <div className="flex items-center justify-between p-3 sm:p-4 ">
         <Link to="/" className="text-3xl font-bold flex-props-c">
           <img src={Icon} className="h-8 w-8 mr-3" />
           CMS

@@ -1,6 +1,5 @@
 import React from "react";
-import { FaGlobe, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
-import Icon from '../assets/icon.png'
+import Icon from "../assets/icon.png";
 
 const Footer = () => {
   return (
@@ -25,20 +24,6 @@ const Footer = () => {
             @instagram.com
           </a>
         </p>
-        <div className="flex mt-4 md:mt-0">
-          <a className="text-gray-500" href="#your-link">
-            <FaGlobe className="w-5 h-5" />
-          </a>
-          <a className="ml-3 text-gray-500" href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <FaTwitter className="w-5 h-5" />
-          </a>
-          <a className="ml-3 text-gray-500" href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <FaFacebook className="w-5 h-5" />
-          </a>
-          <a className="ml-3 text-gray-500" href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-            <FaInstagram className="w-5 h-5" />
-          </a>
-        </div>
       </div>
     </footer>
   );

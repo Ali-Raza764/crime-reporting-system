@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthUser } from "../utils/AuthUser";
+import { AuthUser } from "../utils/AuthUser"; // custom hook for auth
 import { useNavigate } from "react-router-dom";
 import { app, upload } from "../config/firebase";
 import { toast } from "react-toastify";
@@ -19,23 +19,27 @@ const CreateCriminal = () => {
   const [loading, setLoading] = useState(false);
   const user = AuthUser();
   const navigate = useNavigate();
-
   const db = getFirestore(app);
 
   const getlastCriminalId = async () => {
-    const q = query(
-      collection(db, "criminals"),
-      orderBy("createdAt", "desc"),
-      limit(1)
-    );
-    const CrimiIdSnapshot = await getDocs(q);
-    const data = CrimiIdSnapshot;
-    return parseInt(data.docs[0].data().criminalId);
+    try {
+      const q = query(
+        collection(db, "criminals"),
+        orderBy("createdAt", "desc"),
+        limit(1)
+      );
+      const CrimiIdSnapshot = await getDocs(q);
+      const data = CrimiIdSnapshot;
+      return parseInt(data.docs[0].data().criminalId);
+    } catch (error) {
+      console.error;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Get the form values
     const name = e.target.criminalName.value;
     const gender = e.target.gender.value;
     const age = e.target.age.value;
@@ -50,6 +54,7 @@ const CreateCriminal = () => {
       // * Get the last criminal Id by reading the last made criminal in the data-base
       const lastCrimnalId = await getlastCriminalId();
       const criminalId = (lastCrimnalId + 1).toString();
+      console.log("Last Id",lastCrimnalId, " \n newId =  ", criminalId);
 
       const criminalRef = doc(db, "criminals", name + criminalId);
       await setDoc(criminalRef, {
@@ -68,7 +73,7 @@ const CreateCriminal = () => {
       });
       toast.success("Created Criminal Successfully");
       setLoading(false);
-      navigate(`/criminaldetails/${criminalId}`)
+      navigate(`/criminaldetails/${criminalId}`);
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -76,7 +81,7 @@ const CreateCriminal = () => {
   };
 
   if (!user) {
-    return <LoggedOut />
+    return <LoggedOut />;
   }
   return (
     <div className="w-full h-full flex-props-c flex-col px-4 py-2 sm:p-6">
@@ -84,7 +89,7 @@ const CreateCriminal = () => {
         Add New Criminals
       </h1>
 
-      <div className="Form-Wrapper h-auto bg-gray-300 shadow-lg rounded-lg p-6">
+      <div className="w-[70%] Form-Wrapper h-auto bg-gray-300 shadow-lg rounded-lg p-6">
         <form
           className="flex-props-c flex-col space-y-4"
           onSubmit={handleSubmit}
